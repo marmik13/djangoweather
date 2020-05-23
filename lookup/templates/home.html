@@ -6,6 +6,56 @@
 
 {% block content %}
 
-	<h1>HELLO WORLD!</h1>
-	
+
+
+	{% if api %} 
+		{% if api == 'Error...' %}
+			There was an error Please try again...
+		{% else %}
+			<ul class="nav">
+			    <li class="nav-item">
+			        <b><a class="nav-link active" href="#" style="color:black; display: inline;">Wind Speed:</a></b><span>{{api.current.wind_speed}} km/h</span>
+			    </li>
+			    <li class="nav-item">
+			        <b><a class="nav-link active" href="#" style="color:black; display: inline;">Wind Degree:</a></b><span>{{api.current.wind_degree}},{{api.current.wind_dir}}</span>
+			    </li>
+			    <li class="nav-item">
+			        <b><a class="nav-link active" href="#" style="color:black; display: inline;">Humidity:</a></b><span>{{api.current.humidity}}%</span>
+			    </li>
+			    <li class="nav-item">
+			        <b><a class="nav-link active" href="#" style="color:black; display: inline;">UV Index:</a></b><span>{{api.current.uv_index}}</span>
+			    </li>
+			    <li class="nav-item">
+			        <b><a class="nav-link active" href="#" style="color:black; display: inline;">Visibility:</a></b><span>{{api.current.visibility}} mi</span>
+			    </li>
+			    <li class="nav-item">
+			        <b><a class="nav-link active" href="#" style="color:black; display: inline;">Pressure:</a></b><span>{{api.current.pressure}} mb</span>
+			    </li>
+			</ul>
+			<div class="jumbotron">
+			    <h1 class="display-5" style="display: inline;">Weather at </h1><h3 class="display-5" style="display: inline;">{{api.request.query}}</h3>
+			    <h1 class="display-4">Good</h1>	
+			    <p class="lead"></p>
+			    <hr class="my-4">
+			   
+			    <p>It uses utility classes for typography and spacing to space content out within the larger container.</p>
+			</div>
+
+			Temperature: {{api.current.temperature}}&deg;<br>
+			Weather Descriptions: {% for i in api.current.weather_descriptions %}
+				{{i}}
+			{% endfor %} <br>
+			
+			
+			
+			Cloud Cover: {{api.current.cloudcover}} <br>
+			Feels like: {{api.current.feelslike}}&deg; <br>
+			
+			is_day: {{api.current.is_day}} <br>
+		{% endif %}
+	{% endif %}
+
+
+
+	{{api_data}}
 {% endblock content %}
