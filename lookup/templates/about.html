@@ -3,7 +3,60 @@
 {% block titlename %}
 	About: Know more about this site.
 {% endblock titlename %}
+{% block style %}
+<style>
+.profilebox:hover{
+	cursor: pointer;
+	transform: scale(1.1);
+}
+.vl {
+    border-left: 6px solid green;
+    height: 320px;
+    position: relative;
+    left: 20px;
+    margin-left: -3px;
+    top: 8px;
+    margin:0.5rem;
+    max-width: 750px;
+}
+.vl ul li:hover{
+	background-color: #F2F2F2;
+	cursor: pointer;
+}
+</style>
+{% endblock style %}
 
 {% block content %}
-	<h1>About me...</h1>
+	<h1>Weather App</h1>
+	 	<div class="row text-center">
+		    <!-- Team item-->
+		    <div class="col-xl-3 col-sm-6 m-4 profilebox">
+		        <div class="bg-light rounded shadow py-5 px-4"><img src="https://res.cloudinary.com/mhmd/image/upload/v1556834133/avatar-2_f8dowd.png" alt="" width="100" class="img-fluid rounded-circle mb-3 img-thumbnail shadow-sm">
+		            <h5 class="mb-0">Marmik Patel </h5><span class="small text-uppercase text-muted">Django Developer</span>
+		            <ul class="social mb-0 list-inline mt-3">
+		                <li class="list-inline-item"><a href="https://www.facebook.com" class="social-link"><i class="fa fa-facebook-f"></i></a></li>
+		                <li class="list-inline-item"><a href="https://www.twitter.com" class="social-link"><i class="fa fa-twitter"></i></a></li>
+		                <li class="list-inline-item"><a href="https://www.instagram.com" class="social-link"><i class="fa fa-instagram"></i></a></li>
+		                <li class="list-inline-item"><a href="https://www.linkedin.com" class="social-link"><i class="fa fa-linkedin"></i></a></li>
+		            </ul>
+		        </div>
+		    </div>
+		    <!-- End-->
+		    <div class="vl">
+				<ul class="text-left">
+			  		<li class="list-group-item" style="font-size: 22px;"><b>About Weather App</b></li>
+			  		<li class="list-group-item">
+			  			The weather app also provides atmospheric pressure, weather conditions, visibility distance, relative humidity, precipitation in different unites, dew point, wind speed and direction.
+			  		</li>
+			  		<li class="list-group-item" style="font-size: 22px;"><b>How to use?</b></li>
+			  		<li class="list-group-item">It is simple to use this app, just write the name of the city in the search box and hit the search button. You will get the weather information of that city. Always write the first letter capital of the city name otherwise it will show an error message.
+			  		</li>
+			  		<li class="list-group-item"><b>Created By:</b>&nbsp; Marmik Patel,&nbsp; Python,&nbsp; Django&nbsp; Developer.</li>
+				</ul>
+		    </div>
+		</div>
+		<div class="col-12 text-center mt-5">
+		    <a href="{% url 'home' %}"class="btn btn-outline-dark btn-lg btn-block">Check Weather</a>
+			
+		</div>
 {% endblock content %}

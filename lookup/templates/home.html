@@ -3,59 +3,99 @@
 {% block titlename %}
 	Home: Weather In Your Area
 {% endblock titlename %}
-
+{% block style %}
+<style>
+@media only screen and (max-width: 1200px) {
+    .setoverflow {
+        overflow-x: scroll;
+    }
+}
+</style>
+{% endblock style %}
 {% block content %}
 
 
 
 	{% if api %} 
 		{% if api == 'Error...' %}
-			There was an error Please try again...
+			<div class="alert alert-danger" role="alert">
+			  	There was an error Please try again...!
+			</div>
+		{% elif api.success == False %}
+			<div class="alert alert-danger" role="alert">
+			  	There was an error, Please enter the city name correctly and try again. <br>
+			  	<span class="text-muted">Ex. Type Ahmedabad not ahemdabad.</span>
+			</div>
 		{% else %}
-			<ul class="nav">
+		<div class="row setoverflow">
+		<div class="col-md-12">
+			<ul class="nav py-2 bg-light rounded-top pl-5">
 			    <li class="nav-item">
-			        <b><a class="nav-link active" href="#" style="color:black; display: inline;">Wind Speed:</a></b><span>{{api.current.wind_speed}} km/h</span>
+			        <b><a class="nav-link active" style="cursor:pointer; color:black; display: inline;">Wind Speed:</a></b><span>{{api.current.wind_speed}} km/h &nbsp;&nbsp;&nbsp;|</span>
 			    </li>
 			    <li class="nav-item">
-			        <b><a class="nav-link active" href="#" style="color:black; display: inline;">Wind Degree:</a></b><span>{{api.current.wind_degree}},{{api.current.wind_dir}}</span>
+			        <b><a class="nav-link active" style="color:black; cursor:pointer; display: inline;">Wind Degree:</a></b><span>{{api.current.wind_degree}}, {{api.current.wind_dir}} &nbsp;&nbsp;&nbsp;|</span>
 			    </li>
 			    <li class="nav-item">
-			        <b><a class="nav-link active" href="#" style="color:black; display: inline;">Humidity:</a></b><span>{{api.current.humidity}}%</span>
+			        <b><a class="nav-link active"  style="color:black; cursor:pointer; display: inline;">Humidity:</a></b><span>{{api.current.humidity}}% &nbsp;&nbsp;&nbsp;|</span>
 			    </li>
 			    <li class="nav-item">
-			        <b><a class="nav-link active" href="#" style="color:black; display: inline;">UV Index:</a></b><span>{{api.current.uv_index}}</span>
+			        <b><a class="nav-link active" style="color:black; cursor:pointer; display: inline;">UV Index:</a></b><span>{{api.current.uv_index}} &nbsp;&nbsp;&nbsp;|</span>
 			    </li>
 			    <li class="nav-item">
-			        <b><a class="nav-link active" href="#" style="color:black; display: inline;">Visibility:</a></b><span>{{api.current.visibility}} mi</span>
+			        <b><a class="nav-link active"  style="color:black; cursor:pointer; display: inline;">Visibility:</a></b><span>{{api.current.visibility}} mi &nbsp;&nbsp;&nbsp;|</span>
 			    </li>
 			    <li class="nav-item">
-			        <b><a class="nav-link active" href="#" style="color:black; display: inline;">Pressure:</a></b><span>{{api.current.pressure}} mb</span>
+			        <b><a class="nav-link active" style="color:black; cursor:pointer; display: inline;">Pressure:</a></b><span>{{api.current.pressure}} mb</span>
 			    </li>
 			</ul>
-			<div class="jumbotron">
-			    <h1 class="display-5" style="display: inline;">Weather at </h1><h3 class="display-5" style="display: inline;">{{api.request.query}}</h3>
-			    <h1 class="display-4">Good</h1>	
+		</div>
+		</div>
+			<div class="jumbotron text-center">
+				<div class="col-12">
+					<h1 style="display: inline;">Weather at </h1><h3 style="display: inline;">{{api.request.query}}</h3>	
+				</div>
+			    <div class="row">
+			    	<div class="col-6 text-right">
+			    		{% for i in api.current.weather_icons %}
+							<img src="{{i}}" class="rounded-circle mt-3" alt="weather icon" width="100" height="100">
+						{% endfor %}
+			    	</div>
+			    	<div class="col-6 text-left pt-3">
+			    		<div class="col-12">
+			    		<h1 class="d-inline mx-2">{{api.current.temperature}}&deg; 
+			    			{% for i in api.current.weather_descriptions %}
+								{{i}}
+							{% endfor %}
+						</h1>
+						</div>
+						<div class="col-12">
+							<span><b>Feels like:</b>&nbsp;{{api.current.feelslike}}&deg;</span>						
+						
+							<span><b>Cloud Cover:</b>&nbsp;{{api.current.cloudcover}}</span>						
+						</div>
+						<div class="col-6">
+							{% if api.current.is_day == 'yes' %}
+								&#9673;
+							{% endif %} Day&nbsp;&nbsp;
+							{% if api.current.is_day == 'no' %}
+								&#9673; 
+							{% endif %} Night
+						</div>
+			    	</div>
+			    </div>
+			    
+
+			
+				
 			    <p class="lead"></p>
 			    <hr class="my-4">
 			   
-			    <p>It uses utility classes for typography and spacing to space content out within the larger container.</p>
+			    <p>The weather forecast is displayed in accordance with your local time. Please pay attention to it when you will watch the weather in another time zone.</p>
 			</div>
 
-			Temperature: {{api.current.temperature}}&deg;<br>
-			Weather Descriptions: {% for i in api.current.weather_descriptions %}
-				{{i}}
-			{% endfor %} <br>
 			
 			
-			
-			Cloud Cover: {{api.current.cloudcover}} <br>
-			Feels like: {{api.current.feelslike}}&deg; <br>
-			
-			is_day: {{api.current.is_day}} <br>
 		{% endif %}
 	{% endif %}
-
-
-
-	{{api_data}}
 {% endblock content %}
